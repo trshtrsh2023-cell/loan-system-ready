@@ -37,9 +37,8 @@ interface FormState {
   selectedBank: string
 }
 
-function BankLogo({ bank, size = 48 }: { bank: BankWithLogo; size?: number }) {
+function BankLogo({ bank, size = 60 }: { bank: BankWithLogo; size?: number }) {
   const [imgError, setImgError] = useState(false)
-  // استخدام bank.name لضمان التوافق مع TypeScript
   const initial = (bank.name || '').replace('بنك ', '').replace('مصرف ', '').charAt(0)
   
   const colors: Record<string, string> = {
@@ -56,7 +55,7 @@ function BankLogo({ bank, size = 48 }: { bank: BankWithLogo; size?: number }) {
   if (!bank.logo_url || imgError) {
     return (
       <div 
-        className={`${colors[bank.bank_key] || 'bg-gray-500'} rounded-lg flex items-center justify-center text-white font-bold shadow-sm`}
+        className={`${colors[bank.bank_key] || 'bg-gray-500'} rounded-xl flex items-center justify-center text-white font-bold shadow-sm flex-shrink-0`}
         style={{ width: size, height: size, fontSize: size * 0.4 }}
       >
         {initial}
@@ -66,7 +65,7 @@ function BankLogo({ bank, size = 48 }: { bank: BankWithLogo; size?: number }) {
 
   return (
     <div 
-      className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex items-center justify-center"
+      className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex items-center justify-center flex-shrink-0"
       style={{ width: size, height: size }}
     >
       <img 
@@ -115,7 +114,7 @@ export default function CalculatorPage() {
       jobType: form.jobType as any,
       militaryRank: form.militaryRank || undefined,
       sakaniSupport: form.sakaniSupport,
-      bankConfig: selectedBankCfg as any // استخدام as any لتجاوز فروقات بسيطة في الـ Types إن وجدت
+      bankConfig: selectedBankCfg as any
     })
     setResult(r)
     setTimeout(() => document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth' }), 100)
@@ -142,29 +141,37 @@ export default function CalculatorPage() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-4 space-y-5">
-        {/* Bank Selector */}
-        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-          <p className="text-sm font-semibold text-gray-700 mb-4">اختر البنك</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {/* Bank Selector - المحدث */}
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <p className="text-lg font-bold text-gray-800 mb-6">اختر البنك</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {banks.map(b => (
               <button 
                 key={b.bank_key}
                 onClick={() => { setForm(f => ({ ...f, selectedBank: b.bank_key })); setResult(null) }}
-                className={`relative flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${
+                className={`relative flex items-center gap-4 p-4 rounded-2xl border-2 transition-all ${
                   form.selectedBank === b.bank_key
-                    ? 'bg-blue-50 border-blue-500 shadow-md'
+                    ? 'bg-blue-50 border-blue-600 shadow-md ring-1 ring-blue-600/10'
                     : 'bg-white border-gray-200 hover:border-blue-300 hover:shadow-sm'
                 }`}
               >
-                <BankLogo bank={b} size={44} />
-                <span className={`text-sm font-medium flex-1 ${
-                  form.selectedBank === b.bank_key ? 'text-blue-700' : 'text-gray-700'
-                }`}>
-                  {b.name}
-                </span>
+                {/* تم تكبير الشعار إلى 60px */}
+                <BankLogo bank={b} size={60} />
+                
+                <div className="flex flex-col items-start overflow-hidden text-right">
+                  <span className={`text-sm font-bold truncate w-full ${
+                    form.selectedBank === b.bank_key ? 'text-blue-700' : 'text-gray-700'
+                  }`}>
+                    {b.name}
+                  </span>
+                  <span className="text-[10px] text-gray-400">تمويل شخصي / عقاري</span>
+                </div>
+
                 {form.selectedBank === b.bank_key && (
-                  <span className="absolute top-1 left-1 bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    ✓
+                  <span className="absolute -top-2 -left-2 bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-lg border-2 border-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
                   </span>
                 )}
               </button>
@@ -179,17 +186,17 @@ export default function CalculatorPage() {
 
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">الراتب الأساسي <span className="text-red-500">*</span></label>
-              <input type="number" className="w-full border p-2 rounded-lg" placeholder="0" value={form.basicSalary}
+              <input type="number" className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" placeholder="0" value={form.basicSalary}
                 onChange={e => { setForm(f => ({ ...f, basicSalary: e.target.value })); setResult(null) }} />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">بدل السكن</label>
-              <input type="number" className="w-full border p-2 rounded-lg" placeholder="0" value={form.housingAllowance}
+              <input type="number" className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" placeholder="0" value={form.housingAllowance}
                 onChange={e => { setForm(f => ({ ...f, housingAllowance: e.target.value })); setResult(null) }} />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">البدلات الأخرى</label>
-              <input type="number" className="w-full border p-2 rounded-lg" placeholder="0" value={form.otherAllowances}
+              <input type="number" className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" placeholder="0" value={form.otherAllowances}
                 onChange={e => { setForm(f => ({ ...f, otherAllowances: e.target.value })); setResult(null) }} />
             </div>
 
@@ -216,7 +223,7 @@ export default function CalculatorPage() {
 
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">سنة الميلاد <span className="text-red-500">*</span></label>
-              <select className="w-full border p-2 rounded-lg" value={form.birthYear}
+              <select className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" value={form.birthYear}
                 onChange={e => { setForm(f => ({ ...f, birthYear: e.target.value })); setResult(null) }}>
                 <option value="">اختر سنة الميلاد</option>
                 {YEARS.map(y => <option key={y} value={y}>{y}</option>)}
@@ -225,7 +232,7 @@ export default function CalculatorPage() {
 
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">سنة التعيين في الوظيفة</label>
-              <select className="w-full border p-2 rounded-lg" value={form.appointmentYear}
+              <select className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" value={form.appointmentYear}
                 onChange={e => { setForm(f => ({ ...f, appointmentYear: e.target.value })); setResult(null) }}>
                 <option value="">اختر سنة التعيين</option>
                 {APT_YEARS.map(y => <option key={y} value={y}>{y}</option>)}
@@ -234,7 +241,7 @@ export default function CalculatorPage() {
 
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">نوع الوظيفة <span className="text-red-500">*</span></label>
-              <select className="w-full border p-2 rounded-lg" value={form.jobType}
+              <select className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" value={form.jobType}
                 onChange={e => { setForm(f => ({ ...f, jobType: e.target.value, militaryRank: '' })); setResult(null) }}>
                 {JOB_TYPES.map(j => <option key={j.value} value={j.value}>{j.label}</option>)}
               </select>
@@ -243,7 +250,7 @@ export default function CalculatorPage() {
             {form.jobType === 'military' && (
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">الرتبة العسكرية <span className="text-red-500">*</span></label>
-                <select className="w-full border p-2 rounded-lg" value={form.militaryRank}
+                <select className="w-full border p-2 rounded-lg outline-none focus:border-blue-500" value={form.militaryRank}
                   onChange={e => { setForm(f => ({ ...f, militaryRank: e.target.value })); setResult(null) }}>
                   <option value="">اختر الرتبة</option>
                   {MILITARY_RANKS.map(r => (
@@ -255,7 +262,7 @@ export default function CalculatorPage() {
 
             <button onClick={calculate}
               disabled={!form.birthYear || !form.basicSalary || (form.jobType === 'military' && !form.militaryRank) || !form.selectedBank}
-              className="bg-blue-600 text-white rounded-lg w-full mt-2 disabled:opacity-50 disabled:cursor-not-allowed text-base py-3 hover:bg-blue-700 transition">
+              className="bg-blue-600 text-white rounded-lg w-full mt-2 disabled:opacity-50 disabled:cursor-not-allowed text-base py-3 hover:bg-blue-700 transition shadow-lg">
               احسب المبلغ المتوقع
             </button>
           </div>
@@ -263,7 +270,7 @@ export default function CalculatorPage() {
 
         {/* Result */}
         {result && (
-          <div id="result-section" className="bg-white p-5 rounded-xl shadow-lg border-2 border-blue-200">
+          <div id="result-section" className="bg-white p-5 rounded-xl shadow-lg border-2 border-blue-200 animate-in fade-in slide-in-from-bottom-4">
             <div className="flex items-center gap-3 mb-4 pb-3 border-b">
               {selectedBankCfg && <BankLogo bank={selectedBankCfg} size={48} />}
               <div>
