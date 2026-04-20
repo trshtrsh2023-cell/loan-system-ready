@@ -13,7 +13,6 @@ const CURRENT_YEAR = new Date().getFullYear()
 const YEARS = Array.from({ length: 60 }, (_, i) => CURRENT_YEAR - 18 - i)
 const APT_YEARS = Array.from({ length: 50 }, (_, i) => CURRENT_YEAR - i)
 
-// تم توحيد الواجهة لتتطابق مع البيانات القادمة من API
 interface BankWithLogo {
   id: string;
   name: string; 
@@ -141,7 +140,7 @@ export default function CalculatorPage() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-4 space-y-5">
-        {/* Bank Selector - المحدث */}
+        {/* Bank Selector */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-lg font-bold text-gray-800 mb-6">اختر البنك</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -155,16 +154,15 @@ export default function CalculatorPage() {
                     : 'bg-white border-gray-200 hover:border-blue-300 hover:shadow-sm'
                 }`}
               >
-                {/* تم تكبير الشعار إلى 60px */}
                 <BankLogo bank={b} size={60} />
                 
                 <div className="flex flex-col items-start overflow-hidden text-right">
-                  <span className={`text-sm font-bold truncate w-full ${
-                    form.selectedBank === b.bank_key ? 'text-blue-700' : 'text-gray-700'
+                  {/* هنا يتم عرض اسم البنك الفعلي القادم من الـ API */}
+                  <span className={`text-base font-bold leading-tight ${
+                    form.selectedBank === b.bank_key ? 'text-blue-700' : 'text-gray-800'
                   }`}>
                     {b.name}
                   </span>
-                  <span className="text-[10px] text-gray-400">تمويل شخصي / عقاري</span>
                 </div>
 
                 {form.selectedBank === b.bank_key && (
