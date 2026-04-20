@@ -111,8 +111,8 @@ export default function AdminSettingsPage() {
             <span className="font-bold text-gray-800">لوحة التحكم</span>
           </div>
           <Link href="/admin" className="text-sm text-gray-500 hover:text-blue-600">المستخدمون</Link>
-<Link href="/admin/settings" className="text-sm text-blue-600 border-b-2 border-blue-600">إعدادات البنوك</Link>
-<Link href="/admin/logs" className="text-sm text-gray-500 hover:text-blue-600">السجلات</Link>
+          <Link href="/admin/settings" className="text-sm text-blue-600 border-b-2 border-blue-600">إعدادات البنوك</Link>
+          <Link href="/admin/logs" className="text-sm text-gray-500 hover:text-blue-600">السجلات</Link>
         </div>
         <button onClick={logout} className="text-sm text-gray-500 hover:text-red-600 transition">خروج ←</button>
       </nav>
