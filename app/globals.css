@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.input-field {
+  @apply w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-6 py-2.5 text-sm transition active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg px-6 py-2.5 text-sm transition active:scale-95;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+}
+
+.label {
+  @apply block text-sm font-medium text-gray-700 mb-1.5;
+}
+
+.badge-pending  { @apply inline-flex items-center gap-1 text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200 rounded-full px-2.5 py-0.5; }
+.badge-approved { @apply inline-flex items-center gap-1 text-xs font-medium bg-green-50 text-green-700 border border-green-200 rounded-full px-2.5 py-0.5; }
+.badge-rejected { @apply inline-flex items-center gap-1 text-xs font-medium bg-red-50 text-red-700 border border-red-200 rounded-full px-2.5 py-0.5; }
