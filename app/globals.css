@@ -13,53 +13,33 @@ html, body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background-color: #f8fafc;
-}
-
-/* Background with white overlay */
-.app-bg {
-  position: relative;
   min-height: 100vh;
 }
 
-.app-bg::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/background.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.50;
-  z-index: -1;
-  pointer-events: none;
+/* ====== الخلفية العامة لكل الموقع - أوضح ====== */
+body {
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(248,250,252,0.45) 100%),
+    url('/background.png');
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
 }
 
-.app-bg::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.75);
-  z-index: -1;
-  pointer-events: none;
+/* ====== Class قديم - مجرد container ====== */
+.app-bg {
+  min-height: 100vh;
 }
 
-/* Utility Classes */
+/* ====== Cards - شفافية أعلى للقراءة ====== */
 .card {
-  @apply bg-white border border-gray-200 rounded-2xl p-5 shadow-sm;
+  @apply bg-white/90 backdrop-blur-md border border-white/50 rounded-2xl p-5 shadow-lg;
 }
 
 .input-field {
-  @apply w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition;
+  @apply w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition bg-white;
 }
 
 .label {
@@ -74,7 +54,42 @@ body {
   @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-xl font-semibold transition;
 }
 
-/* Progress bar animation */
+/* ====== Badges ====== */
+.badge-pending {
+  @apply bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full text-xs;
+}
+.badge-approved {
+  @apply bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs;
+}
+.badge-rejected {
+  @apply bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs;
+}
+
+/* ====== Navbar شفاف على الخلفية ====== */
+nav.bg-white {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* ====== إزالة أي خلفيات صلبة تغطي الصورة ====== */
+.bg-slate-50,
+.bg-gray-50,
+.bg-gradient-to-br {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* استثناء: الخلفيات الملونة داخل الكروت تبقى طبيعية */
+.card .bg-gray-50,
+.card .bg-blue-50,
+.card .bg-green-50,
+.card .bg-amber-50,
+.card .bg-red-50,
+.card .bg-purple-50 {
+  background-color: revert !important;
+}
+
+/* ====== Progress Bar ====== */
 @keyframes progress {
   0% { width: 0%; }
   100% { width: 100%; }
@@ -84,7 +99,7 @@ body {
   animation: progress 3s ease-out forwards;
 }
 
-/* Step indicator */
+/* ====== Step Indicator ====== */
 .step-dot {
   @apply w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition;
 }
@@ -101,21 +116,44 @@ body {
   @apply bg-gray-200 text-gray-500;
 }
 
-/* Custom scrollbar */
+/* ====== Scrollbar ====== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(148, 163, 184, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* ====== Text Stroke White - حدود بيضاء على النص ====== */
+.text-stroke-white {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+  paint-order: stroke fill;
+  text-shadow:
+    -2px -2px 0 rgba(255,255,255,0.8),
+    2px -2px 0 rgba(255,255,255,0.8),
+    -2px 2px 0 rgba(255,255,255,0.8),
+    2px 2px 0 rgba(255,255,255,0.8),
+    0 2px 8px rgba(0,0,0,0.3);
+}
+
+.text-stroke-white-sm {
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.9);
+  paint-order: stroke fill;
+  text-shadow:
+    -1px -1px 0 rgba(255,255,255,0.8),
+    1px -1px 0 rgba(255,255,255,0.8),
+    -1px 1px 0 rgba(255,255,255,0.8),
+    1px 1px 0 rgba(255,255,255,0.8),
+    0 1px 4px rgba(0,0,0,0.2);
 }

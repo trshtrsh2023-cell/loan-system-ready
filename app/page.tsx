@@ -69,15 +69,17 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-3 shadow-lg">
-            <span className="text-3xl">🏦</span>
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl mb-4 shadow-2xl ring-4 ring-white/40 backdrop-blur">
+            <span className="text-4xl drop-shadow-lg">🏦</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">حاسبة القروض البنكية</h1>
-          <p className="text-gray-500 text-sm mt-1">البنوك السعودية</p>
+          <div className="inline-block bg-white/70 backdrop-blur-md px-6 py-3 rounded-2xl shadow-xl border border-white/60">
+            <h1 className="text-2xl font-bold text-gray-900">حاسبة القروض البنكية</h1>
+            <p className="text-gray-700 text-sm mt-1 font-medium">البنوك السعودية</p>
+          </div>
         </div>
 
         <div className="card">
