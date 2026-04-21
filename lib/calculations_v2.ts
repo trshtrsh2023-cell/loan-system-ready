@@ -161,7 +161,6 @@ export function calculateLoanV2(input: LoanInputV2): LoanResultV2 {
     : 60
   
   const today = new Date()
-  const birthDate = new Date(input.birthYear, input.birthMonth - 1, input.birthDay)
   const retirementDate = new Date(input.birthYear + retirementAge, input.birthMonth - 1, input.birthDay)
   const monthsUntilRetirement = Math.max(0, Math.floor(
     (retirementDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24 * 30.44)
