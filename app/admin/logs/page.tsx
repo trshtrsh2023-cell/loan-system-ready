@@ -83,7 +83,6 @@ export default function AdminLogsPage() {
     return true
   })
 
-  // Stats
   const stats = {
     total: logs.length,
     today: logs.filter(l => new Date(l.created_at).toDateString() === new Date().toDateString()).length,
@@ -92,15 +91,16 @@ export default function AdminLogsPage() {
   }
 
   return (
-    <div className="app-bg">
+    <div className="app-bg" dir="rtl">
       <nav className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
             <span className="text-xl">🏦</span>
             <span className="font-bold text-gray-800">لوحة التحكم</span>
           </div>
           <Link href="/admin" className="text-sm text-gray-500 hover:text-blue-600">المستخدمون</Link>
           <Link href="/admin/settings" className="text-sm text-gray-500 hover:text-blue-600">إعدادات البنوك</Link>
+          <Link href="/admin/rates" className="text-sm text-gray-500 hover:text-blue-600">جداول النسب</Link>
           <Link href="/admin/logs" className="text-sm text-blue-600 border-b-2 border-blue-600">السجلات</Link>
         </div>
         <button onClick={logout} className="text-sm text-gray-500 hover:text-red-600 transition">خروج ←</button>
@@ -112,7 +112,6 @@ export default function AdminLogsPage() {
           <p className="text-sm text-gray-500">جميع عمليات البحث والحسابات التي قام بها المستخدمون</p>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="card !p-4">
             <p className="text-xs text-gray-500 mb-1">إجمالي السجلات</p>
@@ -132,7 +131,6 @@ export default function AdminLogsPage() {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="card !p-4">
           <div className="flex flex-wrap gap-3 items-center">
             <div className="flex-1 min-w-[200px]">
@@ -166,7 +164,6 @@ export default function AdminLogsPage() {
           </div>
         </div>
 
-        {/* Logs Table */}
         {loading ? (
           <div className="card text-center py-12">
             <p className="text-gray-500">جاري التحميل...</p>

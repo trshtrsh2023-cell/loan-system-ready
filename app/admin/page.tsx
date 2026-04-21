@@ -66,28 +66,28 @@ export default function AdminPage() {
   }
 
   const statusBadge = (s: string) => {
-    if (s === 'pending') return <span className="badge-pending">⏳ قيد الانتظار</span>
-    if (s === 'approved') return <span className="badge-approved">✅ مفعّل</span>
-    return <span className="badge-rejected">❌ مرفوض</span>
+    if (s === 'pending') return <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full text-xs">⏳ قيد الانتظار</span>
+    if (s === 'approved') return <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">✅ مفعّل</span>
+    return <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs">❌ مرفوض</span>
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Navbar */}
+    <div className="min-h-screen bg-slate-50" dir="rtl">
       <nav className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
             <span className="text-xl">🏦</span>
             <span className="font-bold text-gray-800">لوحة التحكم</span>
           </div>
-          <Link href="/admin" className="text-sm text-blue-600 border-b border-blue-600">المستخدمون</Link>
+          <Link href="/admin" className="text-sm text-blue-600 border-b-2 border-blue-600">المستخدمون</Link>
           <Link href="/admin/settings" className="text-sm text-gray-500 hover:text-blue-600">إعدادات البنوك</Link>
+          <Link href="/admin/rates" className="text-sm text-gray-500 hover:text-blue-600">جداول النسب</Link>
+          <Link href="/admin/logs" className="text-sm text-gray-500 hover:text-blue-600">السجلات</Link>
         </div>
         <button onClick={logout} className="text-sm text-gray-500 hover:text-red-600 transition">خروج ←</button>
       </nav>
 
       <div className="max-w-6xl mx-auto p-4 space-y-4">
-        {/* Stats */}
         <div className="grid grid-cols-4 gap-3">
           {([['all', 'الكل', '👥'], ['pending', 'قيد الانتظار', '⏳'], ['approved', 'مفعّلون', '✅'], ['rejected', 'مرفوضون', '❌']] as const).map(([key, label, icon]) => (
             <button key={key} onClick={() => setFilter(key as FilterType)}
@@ -99,7 +99,6 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {/* Table */}
         <div className="card !p-0 overflow-hidden">
           <div className="p-4 border-b border-gray-100 flex items-center gap-3">
             <input className="input-field max-w-xs" placeholder="بحث بالاسم أو رقم الطلب..."
@@ -131,7 +130,7 @@ export default function AdminPage() {
                       <td className="px-4 py-3 font-mono text-xs text-blue-700 font-medium">{u.request_id}</td>
                       <td className="px-4 py-3 font-medium text-gray-800">{u.full_name || '—'}</td>
                       <td className="px-4 py-3 text-gray-600">{u.username}</td>
-                      <td className="px-4 py-3 text-gray-600 dir-ltr">{u.phone || '—'}</td>
+                      <td className="px-4 py-3 text-gray-600">{u.phone || '—'}</td>
                       <td className="px-4 py-3 text-gray-500 text-xs">
                         {new Date(u.created_at).toLocaleDateString('ar-SA')}
                       </td>

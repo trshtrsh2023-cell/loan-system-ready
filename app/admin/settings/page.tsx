@@ -105,13 +105,14 @@ export default function AdminSettingsPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-right" dir="rtl">
       <nav className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
             <span className="text-xl">🏦</span>
             <span className="font-bold text-gray-800">لوحة التحكم</span>
           </div>
           <Link href="/admin" className="text-sm text-gray-500 hover:text-blue-600">المستخدمون</Link>
           <Link href="/admin/settings" className="text-sm text-blue-600 border-b-2 border-blue-600">إعدادات البنوك</Link>
+          <Link href="/admin/rates" className="text-sm text-gray-500 hover:text-blue-600">جداول النسب</Link>
           <Link href="/admin/logs" className="text-sm text-gray-500 hover:text-blue-600">السجلات</Link>
         </div>
         <button onClick={logout} className="text-sm text-gray-500 hover:text-red-600 transition">خروج ←</button>
@@ -146,7 +147,7 @@ export default function AdminSettingsPage() {
                       <p className="text-xs text-gray-400">{bank.bank_key}</p>
                     </div>
                     {saved === bank.bank_key && (
-                      <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full animate-pulse">✓ تم الحفظ</span>
+                      <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">✓ تم الحفظ</span>
                     )}
                   </div>
                   <div className="flex items-center gap-3">
